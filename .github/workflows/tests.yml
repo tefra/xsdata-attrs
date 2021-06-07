@@ -1,0 +1,53 @@
+name: tests
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  tests:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {name: PyPy 3.6, python: pypy-3.6, os: ubuntu}
+          - {name: PyPy 3.7, python: pypy-3.7, os: ubuntu}
+          - {name: Python 3.6, python: 3.6, os: ubuntu}
+          - {name: Python 3.7, python: 3.7, os: ubuntu}
+          - {name: Python 3.8, python: 3.8, os: ubuntu}
+          - {name: Python 3.9, python: 3.9, os: ubuntu}
+          - {name: Python 3.10, python: 3.10.0-beta - 3.10, os: ubuntu}
+          - {name: Windows py37, python: 3.7, os: windows}
+          - {name: MacOS py37, python: 3.7, os: macos}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install libxml2
+        if: startsWith(matrix.python, 'pypy') || startsWith(matrix.python, '3.10')
+        run: |
+          sudo apt-get install libxml2-dev libxslt-dev
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools tox codecov
+      - name: Test
+        run: |
+          tox -e py -- --cov=./xsdata_attrs --cov-branch --doctest-glob="docs/*.rst"
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+  pre-commit:
+    name: Pre-commit Hooks
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+    - uses: pre-commit/action@v2.0.2
