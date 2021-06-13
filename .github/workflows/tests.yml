@@ -13,13 +13,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: [ "3.6", "3.7", "3.8", "3.9", "3.10.0-beta - 3.10", "pypy3" ]
+        python: [ "3.6", "3.7", "3.8", "3.9", "3.10.0-beta - 3.10" ]
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python }}
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python }}
+      - name: Install libxml2
+        if: startsWith(matrix.python, 'pypy') || startsWith(matrix.python, '3.10')
+        run: |
+          sudo apt-get install libxml2-dev libxslt-dev
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip setuptools tox codecov
@@ -37,7 +41,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: [ "3.7", "3.8", "3.9", "3.10.0-beta - 3.10" ]
+        python: [ "3.9" ]
         collection:
           - { name: "Amadeus", id: "amadeus" }
           - { name: "Sabre", id: "sabre" }
@@ -57,7 +61,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           repository: tefra/xsdata-samples
-          ref: fixes
+          ref: master
           submodules: true
           path: xsdata-samples
       - name: Set up Python ${{ matrix.python }}
@@ -66,9 +70,8 @@ jobs:
           python-version: ${{ matrix.python }}
       - name: Install dependencies
         run: |
-          pip install --upgrade pip
+          pip install --upgrade pip mypy types-attrs
           pip install .[cli,test]
-          pip install -I git+https://github.com/tefra/xsdata@data-compat#egg=xsdata[cli,lxml,test]
       - name: Generate Code
         working-directory: ./xsdata-samples
         if: matrix.collection.id != 'defxml'
