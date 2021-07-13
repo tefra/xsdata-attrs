@@ -2,10 +2,9 @@ from datetime import datetime
 from operator import attrgetter
 from unittest import TestCase
 
-from attr import Factory
 from xsdata.formats.dataclass.compat import class_types
 
-from tests.fixtures import TypeC
+from tests.fixtures.common import TypeC
 from xsdata_attrs.bindings import XmlContext
 from xsdata_attrs.compat import AnyElement
 from xsdata_attrs.compat import Attrs

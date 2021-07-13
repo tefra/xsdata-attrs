@@ -1,3 +1,5 @@
+exclude: tests/fixtures
+
 repos:
   - repo: https://github.com/asottile/pyupgrade
     rev: v2.21.0

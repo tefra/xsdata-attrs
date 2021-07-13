@@ -1,3 +1,8 @@
+import os
+from pathlib import Path
+
+from click.testing import CliRunner
+from xsdata.cli import cli
 from xsdata.models.config import GeneratorConfig
 from xsdata.utils.testing import ClassFactory
 from xsdata.utils.testing import FactoryTestCase
@@ -85,3 +90,20 @@ class AttrsGeneratorTests(FactoryTestCase):
 
         self.assertEqual("foo.tests", actual[1][1])
         self.assertEqual(expected, actual[1][2])
+
+    def test_complete(self):
+        runner = CliRunner()
+        schema = Path(__file__).parent.joinpath("fixtures/schemas/po.xsd")
+        os.chdir(Path(__file__).parent.parent)
+
+        result = runner.invoke(
+            cli,
+            [
+                str(schema),
+                "--package",
+                "tests.fixtures.po.models",
+                "--structure-style=single-package",
+            ],
+        )
+
+        self.assertIsNone(result.exception)

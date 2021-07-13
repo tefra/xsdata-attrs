@@ -1,7 +1,7 @@
 from datetime import datetime
 from unittest import TestCase
 
-from tests.fixtures import TypeC
+from tests.fixtures.common import TypeC
 from xsdata_attrs.bindings import JsonParser
 from xsdata_attrs.bindings import JsonSerializer
 from xsdata_attrs.bindings import XmlParser
