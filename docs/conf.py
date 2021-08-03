@@ -8,17 +8,18 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
-# -- Project information -----------------------------------------------------
+import os
+import sys
+from importlib import metadata
+
+sys.path.insert(0, os.path.abspath(".."))
 
 project = "xsdata-attrs"
 copyright = "2021, Christodoulos Tsoulloftas"
 author = "Christodoulos Tsoulloftas"
 
 # The full version, including alpha/beta/rc tags
-release = "21.7"
+version = release = metadata.version("xsdata-attrs")
 
 
 # -- General configuration ---------------------------------------------------
