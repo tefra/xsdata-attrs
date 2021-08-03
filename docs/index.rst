@@ -21,3 +21,7 @@ xsdata's plugin hooks.
     bindings
     changelog
     GitHub Repository <https://github.com/tefra/xsdata-attrs>
+
+
+.. meta::
+   :google-site-verification: VSyrlSSIOrwnZhhAo3dS6hf1efs-8FxF3KezQ-bH_js
