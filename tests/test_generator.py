@@ -103,6 +103,10 @@ class AttrsGeneratorTests(FactoryTestCase):
                 "--package",
                 "tests.fixtures.po.models",
                 "--structure-style=single-package",
+                "--output",
+                "attrs",
+                "--config",
+                "tests/fixtures/attrs.conf.xml",
             ],
         )
 

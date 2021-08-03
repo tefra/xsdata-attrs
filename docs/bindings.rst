@@ -32,7 +32,7 @@ Binding Shortcuts
 -----------------
 
 For convenience this plugin comes with subclasses for all the xsdata binding modules
-with the attrs context auto initialized..
+with the attrs context auto initialized.
 
 .. code-block:: python
 
