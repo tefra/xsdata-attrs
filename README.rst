@@ -55,6 +55,30 @@ Generate Models
     Generating package: init
     Generating package: generated.rss
 
+.. code-block:: python
+
+    ...
+
+    @attr.s
+    class Rss:
+        class Meta:
+            name = "rss"
+
+        version: Optional[float] = attr.ib(
+            default=None,
+            metadata={
+                "type": "Attribute",
+            }
+        )
+        channel: Optional[Channel] = attr.ib(
+            default=None,
+            metadata={
+                "type": "Element",
+            }
+        )
+
+    ...
+
 
 XML Parsing
 ===========
