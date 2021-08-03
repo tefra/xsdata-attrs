@@ -53,8 +53,8 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # a list of builtin themes.
 #
 html_theme = "furo"
-html_favicon = "favicon.png"
-html_logo = "logo.svg"
+html_favicon = "_static/favicon.png"
+html_logo = "_static/logo.svg"
 html_theme_options = {
     "sidebar_hide_name": True,
 }

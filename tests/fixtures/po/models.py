@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field
+import attr
 from decimal import Decimal
 from typing import List, Optional
 from xsdata.models.datatype import XmlDate
@@ -6,20 +6,19 @@ from xsdata.models.datatype import XmlDate
 __NAMESPACE__ = "foo"
 
 
-@dataclass
+@attr.s(slots=True, kw_only=True)
 class Items:
-    item: List["Items.Item"] = field(
-        default_factory=list,
+    item: List["Items.Item"] = attr.ib(
+        factory=list,
         metadata={
             "type": "Element",
             "namespace": "foo",
         }
     )
 
-    @dataclass
+    @attr.s(slots=True, kw_only=True)
     class Item:
-        product_name: Optional[str] = field(
-            default=None,
+        product_name: str = attr.ib(
             metadata={
                 "name": "productName",
                 "type": "Element",
@@ -27,8 +26,7 @@ class Items:
                 "required": True,
             }
         )
-        quantity: Optional[int] = field(
-            default=None,
+        quantity: int = attr.ib(
             metadata={
                 "type": "Element",
                 "namespace": "foo",
@@ -36,8 +34,7 @@ class Items:
                 "max_exclusive": 100,
             }
         )
-        usprice: Optional[Decimal] = field(
-            default=None,
+        usprice: Decimal = attr.ib(
             metadata={
                 "name": "USPrice",
                 "type": "Element",
@@ -45,14 +42,14 @@ class Items:
                 "required": True,
             }
         )
-        comment: Optional[str] = field(
+        comment: Optional[str] = attr.ib(
             default=None,
             metadata={
                 "type": "Element",
                 "namespace": "foo",
             }
         )
-        ship_date: Optional[XmlDate] = field(
+        ship_date: Optional[XmlDate] = attr.ib(
             default=None,
             metadata={
                 "name": "shipDate",
@@ -60,8 +57,7 @@ class Items:
                 "namespace": "foo",
             }
         )
-        part_num: Optional[str] = field(
-            default=None,
+        part_num: str = attr.ib(
             metadata={
                 "name": "partNum",
                 "type": "Attribute",
@@ -71,52 +67,47 @@ class Items:
         )
 
 
-@dataclass
+@attr.s(slots=True, kw_only=True)
 class Usaddress:
     class Meta:
         name = "USAddress"
 
-    name: Optional[str] = field(
-        default=None,
+    name: str = attr.ib(
         metadata={
             "type": "Element",
             "namespace": "foo",
             "required": True,
         }
     )
-    street: Optional[str] = field(
-        default=None,
+    street: str = attr.ib(
         metadata={
             "type": "Element",
             "namespace": "foo",
             "required": True,
         }
     )
-    city: Optional[str] = field(
-        default=None,
+    city: str = attr.ib(
         metadata={
             "type": "Element",
             "namespace": "foo",
             "required": True,
         }
     )
-    state: Optional[str] = field(
-        default=None,
+    state: str = attr.ib(
         metadata={
             "type": "Element",
             "namespace": "foo",
             "required": True,
         }
     )
-    zip: Optional[Decimal] = field(
-        default=None,
+    zip: Decimal = attr.ib(
         metadata={
             "type": "Element",
             "namespace": "foo",
             "required": True,
         }
     )
-    country: str = field(
+    country: str = attr.ib(
         init=False,
         default="US",
         metadata={
@@ -125,24 +116,23 @@ class Usaddress:
     )
 
 
-@dataclass
+@attr.s(slots=True, kw_only=True)
 class Comment:
     class Meta:
         name = "comment"
         namespace = "foo"
 
-    value: Optional[str] = field(
-        default=None,
+    value: str = attr.ib(
+        default="",
         metadata={
             "required": True,
         }
     )
 
 
-@dataclass
+@attr.s(slots=True, kw_only=True)
 class PurchaseOrderType:
-    ship_to: Optional[Usaddress] = field(
-        default=None,
+    ship_to: Usaddress = attr.ib(
         metadata={
             "name": "shipTo",
             "type": "Element",
@@ -150,8 +140,7 @@ class PurchaseOrderType:
             "required": True,
         }
     )
-    bill_to: Optional[Usaddress] = field(
-        default=None,
+    bill_to: Usaddress = attr.ib(
         metadata={
             "name": "billTo",
             "type": "Element",
@@ -159,22 +148,21 @@ class PurchaseOrderType:
             "required": True,
         }
     )
-    comment: Optional[str] = field(
+    comment: Optional[str] = attr.ib(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "foo",
         }
     )
-    items: Optional[Items] = field(
-        default=None,
+    items: Items = attr.ib(
         metadata={
             "type": "Element",
             "namespace": "foo",
             "required": True,
         }
     )
-    order_date: Optional[XmlDate] = field(
+    order_date: Optional[XmlDate] = attr.ib(
         default=None,
         metadata={
             "name": "orderDate",
@@ -183,7 +171,7 @@ class PurchaseOrderType:
     )
 
 
-@dataclass
+@attr.s(slots=True, kw_only=True)
 class PurchaseOrder(PurchaseOrderType):
     class Meta:
         name = "purchaseOrder"
