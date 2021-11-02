@@ -24,7 +24,9 @@ class AttrsFilters(Filters):
     @classmethod
     def build_class_annotation(cls, format: OutputFormat) -> str:
         result = super().build_class_annotation(format)
-        return result.replace("@dataclass", "@attr.s")
+        result = result.replace("unsafe_hash=", "hash=")
+        result = result.replace("@dataclass", "@attr.s")
+        return result
 
     def field_definition(
         self,

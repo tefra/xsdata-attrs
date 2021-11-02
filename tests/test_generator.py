@@ -91,6 +91,15 @@ class AttrsGeneratorTests(FactoryTestCase):
         self.assertEqual("foo.tests", actual[1][1])
         self.assertEqual(expected, actual[1][2])
 
+    def test_with_unsafe_hash(self):
+        config = GeneratorConfig()
+        config.output.format.unsafe_hash = True
+        self.generator = AttrsGenerator(config)
+
+        iterator = self.generator.render(ClassFactory.list(1))
+        actual = [(out.path, out.title, out.source) for out in iterator]
+        self.assertTrue("@attr.s(hash=True)" in actual[1][2])
+
     def test_complete(self):
         runner = CliRunner()
         schema = Path(__file__).parent.joinpath("fixtures/schemas/po.xsd")
