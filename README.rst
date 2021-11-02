@@ -99,3 +99,8 @@ XML Parsing
     'Sat, 03 Jul 2021 16:37:14 GMT'
     >>> result.channel.item[2].link
     'https://www.cnn.com/2021/07/03/europe/vatican-financial-scandal-intl/index.html'
+
+
+Changelog: 21.11 (2021-11-02)
+-----------------------------
+- Fixed dataclass.unsafe_hash mapping to attrs.hash property `#7 <https://github.com/tefra/xsdata-attrs/issues/7>`_
