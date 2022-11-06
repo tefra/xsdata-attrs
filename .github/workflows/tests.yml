@@ -13,17 +13,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: [ "3.6", "3.7", "3.8", "3.9", "3.10" ]
+        python: [ "3.7", "3.8", "3.9", "3.10", "3.11" ]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
-      - name: Install libxml2
-        if: startsWith(matrix.python, 'pypy')
-        run: |
-          sudo apt-get install libxml2-dev libxslt-dev
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip setuptools tox codecov
@@ -31,7 +27,7 @@ jobs:
         run: |
           tox -e py -- --cov=./xsdata_attrs --cov-branch --doctest-glob="docs/*.rst"
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
@@ -41,31 +37,35 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: [ "3.9" ]
+        python: [ "3.10" ]
         collection:
           - { name: "Amadeus", id: "amadeus" }
-          - { name: "Sabre", id: "sabre" }
-          - { name: "Travelport", id: "travelport" }
-          - { name: "Common Types", id: "common_types" }
-          - { name: "ReqIF", id: "reqif" }
-          - { name: "NPO API", id: "npo" }
-          - { name: "DateX II", id: "datexii" }
-          - { name: "EWP", id: "ewp" }
-          - { name: "UBL", id: "ubl" }
-          - { name: "NeTEx", id: "netex" }
-          - { name: "DefXML", id: "defxml" }
-          - { name: "SpaceX", id: "spacex" }
           - { name: "Autosar", id: "autosar" }
+          - { name: "BPMN", id: "bpmn" }
+          - { name: "Common Types", id: "common_types" }
+          - { name: "Crossref Metadata", id: "crossref" }
+          - { name: "DateX II", id: "datexii" }
+#          - { name: "DefXML", id: "defxml" }
+          - { name: "EWP", id: "ewp" }
+          - { name: "Generali", id: "generali" }
+          - { name: "NeTEx", id: "netex" }
+          - { name: "NPO API", id: "npo" }
+          - { name: "ReqIF", id: "reqif" }
+          - { name: "Sabre", id: "sabre" }
+          - { name: "SpaceX", id: "spacex" }
+          - { name: "Travelport", id: "travelport" }
+          - { name: "UBL", id: "ubl" }
+          - { name: "XCBL", id: "xcbl" }
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
           repository: tefra/xsdata-samples
           ref: master
           submodules: true
           path: xsdata-samples
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
       - name: Install dependencies
@@ -88,6 +88,6 @@ jobs:
     name: Pre-commit Hooks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
       - uses: pre-commit/action@v2.0.2
