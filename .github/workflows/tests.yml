@@ -75,14 +75,14 @@ jobs:
       - name: Generate Code
         working-directory: ./xsdata-samples
         if: matrix.collection.id != 'defxml'
-        run: OUTPUT_FORMAT=attrs make build-${{ matrix.collection.id }}
+        run: ./run.py build ${{ matrix.collection.id }} --output-format=attrs
       - name: Run Tests
         if: matrix.collection.id != 'common_types'
         working-directory: ./xsdata-samples
-        run: OUTPUT_FORMAT=attrs make test-${{ matrix.collection.id }}
+        run: ./run.py test ${{ matrix.collection.id }} --output-format=attrs
       - name: Run mypy
         working-directory: ./xsdata-samples
-        run: OUTPUT_FORMAT=attrs make mypy-${{ matrix.collection.id }}
+        run: ./run.py mypy ${{ matrix.collection.id }} --output-format=attrs
 
   pre-commit:
     name: Pre-commit Hooks
