@@ -1,4 +1,4 @@
-.. image:: https://raw.githubusercontent.com/tefra/xsdata-attrs/master/docs/_static/logo.svg
+.. image:: https://raw.githubusercontent.com/tefra/xsdata-attrs/main/docs/_static/logo.svg
     :target: https://xsdata-attrs.readthedocs.io/
 
 xsdata powered by attrs!
@@ -10,7 +10,7 @@ xsdata powered by attrs!
 .. image:: https://readthedocs.org/projects/xsdata-attrs/badge
     :target: https://xsdata-attrs.readthedocs.io/
 
-.. image:: https://codecov.io/gh/tefra/xsdata-attrs/branch/master/graph/badge.svg
+.. image:: https://codecov.io/gh/tefra/xsdata-attrs/branch/main/graph/badge.svg
     :target: https://codecov.io/gh/tefra/xsdata-attrs
 
 .. image:: https://img.shields.io/github/languages/top/tefra/xsdata-attrs.svg
