@@ -21,7 +21,7 @@ In order to use the latest updates you can also install directly from the git re
 
 .. code-block:: console
 
-    $ pip install git+https://github.com/tefra/xsdata-attrs@master#egg=xsdata-attrs[cli]
+    $ pip install xsdata-attrs[cli] @ git+https://github.com/tefra/xsdata-attrs
 
 
 Install using conda

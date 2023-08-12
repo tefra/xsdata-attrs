@@ -85,10 +85,12 @@ class Attrs(ClassType):
 
         return tuple(fields.values())
 
-    def default_value(self, field: attr.Attribute) -> Any:
+    def default_value(
+        self, field: attr.Attribute, default: Optional[Any] = None
+    ) -> Any:
         res = field.default
         if res is attr.NOTHING:
-            return None
+            return default
 
         if isinstance(res, attr.Factory):  # type: ignore
             return res.factory  # type: ignore
