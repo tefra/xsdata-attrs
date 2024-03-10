@@ -1,70 +1,10 @@
-import attr
 from decimal import Decimal
 from typing import List, Optional
+
+import attr
 from xsdata.models.datatype import XmlDate
 
 __NAMESPACE__ = "foo"
-
-
-@attr.s(slots=True, kw_only=True)
-class Items:
-    item: List["Items.Item"] = attr.ib(
-        factory=list,
-        metadata={
-            "type": "Element",
-            "namespace": "foo",
-        }
-    )
-
-    @attr.s(slots=True, kw_only=True)
-    class Item:
-        product_name: str = attr.ib(
-            metadata={
-                "name": "productName",
-                "type": "Element",
-                "namespace": "foo",
-                "required": True,
-            }
-        )
-        quantity: int = attr.ib(
-            metadata={
-                "type": "Element",
-                "namespace": "foo",
-                "required": True,
-                "max_exclusive": 100,
-            }
-        )
-        usprice: Decimal = attr.ib(
-            metadata={
-                "name": "USPrice",
-                "type": "Element",
-                "namespace": "foo",
-                "required": True,
-            }
-        )
-        comment: Optional[str] = attr.ib(
-            default=None,
-            metadata={
-                "type": "Element",
-                "namespace": "foo",
-            }
-        )
-        ship_date: Optional[XmlDate] = attr.ib(
-            default=None,
-            metadata={
-                "name": "shipDate",
-                "type": "Element",
-                "namespace": "foo",
-            }
-        )
-        part_num: str = attr.ib(
-            metadata={
-                "name": "partNum",
-                "type": "Attribute",
-                "required": True,
-                "pattern": r"\d{3}-[A-Z]{2}",
-            }
-        )
 
 
 @attr.s(slots=True, kw_only=True)
@@ -112,7 +52,7 @@ class Usaddress:
         default="US",
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -126,8 +66,69 @@ class Comment:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
+
+
+@attr.s(slots=True, kw_only=True)
+class Items:
+    item: List["Items.Item"] = attr.ib(
+        factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "foo",
+        },
+    )
+
+    @attr.s(slots=True, kw_only=True)
+    class Item:
+        product_name: str = attr.ib(
+            metadata={
+                "name": "productName",
+                "type": "Element",
+                "namespace": "foo",
+                "required": True,
+            }
+        )
+        quantity: int = attr.ib(
+            metadata={
+                "type": "Element",
+                "namespace": "foo",
+                "required": True,
+                "max_exclusive": 100,
+            }
+        )
+        usprice: Decimal = attr.ib(
+            metadata={
+                "name": "USPrice",
+                "type": "Element",
+                "namespace": "foo",
+                "required": True,
+            }
+        )
+        comment: Optional[Comment] = attr.ib(
+            default=None,
+            metadata={
+                "type": "Element",
+                "namespace": "foo",
+            },
+        )
+        ship_date: Optional[XmlDate] = attr.ib(
+            default=None,
+            metadata={
+                "name": "shipDate",
+                "type": "Element",
+                "namespace": "foo",
+            },
+        )
+        part_num: str = attr.ib(
+            metadata={
+                "name": "partNum",
+                "type": "Attribute",
+                "required": True,
+                "pattern": r"\d{3}-[A-Z]{2}",
+            }
+        )
 
 
 @attr.s(slots=True, kw_only=True)
@@ -148,12 +149,12 @@ class PurchaseOrderType:
             "required": True,
         }
     )
-    comment: Optional[str] = attr.ib(
+    comment: Optional[Comment] = attr.ib(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "foo",
-        }
+        },
     )
     items: Items = attr.ib(
         metadata={
@@ -167,7 +168,7 @@ class PurchaseOrderType:
         metadata={
             "name": "orderDate",
             "type": "Attribute",
-        }
+        },
     )
 
 

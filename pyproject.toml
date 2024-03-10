@@ -2,6 +2,9 @@
 requires = ["setuptools>=61.2"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools.packages.find]
+include = ["xsdata_attrs*"]
+
 [project]
 name = "xsdata_attrs"
 description = "xsdata attrs plugin"
@@ -28,19 +31,19 @@ keywords = ["xsd", "wsdl", "schema", "dtd", "binding", "xml", "json", "dataclass
 requires-python = ">=3.8"
 dependencies = [
     "attrs>=19.2.0",
-    "xsdata>=23.5",
+    "xsdata>=24.3",
 ]
 dynamic = ["version"]
 
 [project.readme]
-file = "README.rst"
-content-type = "text/x-rst"
+file = "README.md"
+content-type = "text/markdown"
 
 [project.urls]
 Homepage = "https://github.com/tefra/xsdata-attrs"
 Source = "https://github.com/tefra/xsdata-attrs"
 Documentation = "https://xsdata-attrs.readthedocs.io/"
-Changelog = "https://xsdata-attrs.readthedocs.io/en/latest/changelog.html"
+Changelog = "https://xsdata-attrs.readthedocs.io/en/latest/changelog/"
 
 [project.entry-points]
 "xsdata.plugins.cli" = {xsdata_attrs = "xsdata_attrs.hooks.cli"}
@@ -51,11 +54,16 @@ xsdata_attrs = "xsdata_attrs.hooks.class_type"
 [project.optional-dependencies]
 cli = ["xsdata[cli]>=23.5"]
 docs = [
-    "furo",
-    "sphinx",
-    "sphinx-autobuild",
+    "mkdocs",
+    "mkdocs-gen-files",
+    "mkdocs-literate-nav",
+    "mkdocs-material",
+    "mkdocs-minify-plugin",
+    "mkdocstrings[python]",
+    "markdown-exec[ansi]",
+    "pymdownx-superfence-filter-lines",
 ]
-lxml = ["lxml>=4.4.1"]
+lxml = ["lxml>=4.5.0"]
 soap = ["requests"]
 test = [
     "codecov",

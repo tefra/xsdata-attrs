@@ -27,10 +27,10 @@ class AttrsGeneratorTests(FactoryTestCase):
         iterator = self.generator.render(classes)
 
         actual = [(out.path, out.title, out.source) for out in iterator]
-
         expected = (
-            "import attr\n"
             "from typing import List, Optional\n"
+            "\n"
+            "import attr\n"
             "\n"
             '__NAMESPACE__ = "xsdata"\n'
             "\n"
@@ -46,14 +46,14 @@ class AttrsGeneratorTests(FactoryTestCase):
             '            "name": "attr_B",\n'
             '            "type": "Element",\n'
             '            "max_occurs": 3,\n'
-            "        }\n"
+            "        },\n"
             "    )\n"
             "    attr_c: Optional[str] = attr.ib(\n"
             "        default=None,\n"
             "        metadata={\n"
             '            "name": "attr_C",\n'
             '            "type": "Element",\n'
-            "        }\n"
+            "        },\n"
             "    )\n"
             "\n"
             "\n"
@@ -67,21 +67,21 @@ class AttrsGeneratorTests(FactoryTestCase):
             "        metadata={\n"
             '            "name": "attr_D",\n'
             '            "type": "Element",\n'
-            "        }\n"
+            "        },\n"
             "    )\n"
             "    attr_e: Optional[str] = attr.ib(\n"
             "        default=None,\n"
             "        metadata={\n"
             '            "name": "attr_E",\n'
             '            "type": "Element",\n'
-            "        }\n"
+            "        },\n"
             "    )\n"
             "    attr_f: Optional[str] = attr.ib(\n"
             "        default=None,\n"
             "        metadata={\n"
             '            "name": "attr_F",\n'
             '            "type": "Element",\n'
-            "        }\n"
+            "        },\n"
             "    )\n"
         )
 

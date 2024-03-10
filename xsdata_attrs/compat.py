@@ -17,14 +17,14 @@ T = TypeVar("T", bound=object)
 
 @attr.s
 class AnyElement:
-    """
-    Generic model to bind xml document data to wildcard fields.
+    """Generic model to bind xml document data to wildcard fields.
 
-    :param qname: The element's qualified name
-    :param text: The element's text content
-    :param tail: The element's tail content
-    :param children: The element's list of child elements.
-    :param attributes: The element's key-value attribute mappings.
+    Args:
+        qname: The element's qualified name
+        text: The element's text content
+        tail: The element's tail content
+        children: The element's list of child elements.
+        attributes: The element's key-value attribute mappings.
     """
 
     qname: Optional[str] = attr.ib(default=None)
@@ -38,14 +38,14 @@ class AnyElement:
 
 @attr.s
 class DerivedElement(Generic[T]):
-    """
-    Generic model wrapper for type substituted elements.
+    """Generic model wrapper for type substituted elements.
 
     Example: eg. <b xsi:type="a">...</b>
 
-    :param qname: The element's qualified name
-    :param value: The wrapped value
-    :param type: The real xsi:type
+    Args:
+        qname: The element's qualified name
+        value: The wrapped value
+        type: The real xsi:type
     """
 
     qname: str = attr.ib()
@@ -54,22 +54,36 @@ class DerivedElement(Generic[T]):
 
 
 class Attrs(ClassType):
+    """The attrs class type."""
+
     @property
     def any_element(self) -> Type:
+        """Return the AnyElement used to bind wildcard element nodes."""
         return AnyElement
 
     @property
     def derived_element(self) -> Type:
+        """Return the DerivedElement used to bind ambiguous element nodes."""
         return DerivedElement
 
     def is_model(self, obj: Any) -> bool:
+        """Return whether the given value is binding model."""
         return attr.has(obj if isinstance(obj, type) else type(obj))
 
     def verify_model(self, obj: Any):
+        """Verify the given value is a binding model.
+
+        Args:
+            obj: The input model instance
+
+        Raises:
+            XmlContextError: if not supported
+        """
         if not self.is_model(obj):
             raise XmlContextError(f"Type '{obj}' is not an attrs model.")
 
     def get_fields(self, obj: Any) -> Tuple[Any, ...]:
+        """Return the models fields in the correct mro ordering."""
         if not isinstance(obj, type):
             return self.get_fields(type(obj))
 
@@ -88,6 +102,7 @@ class Attrs(ClassType):
     def default_value(
         self, field: attr.Attribute, default: Optional[Any] = None
     ) -> Any:
+        """Return the default value or factory of the given model field."""
         res = field.default
         if res is attr.NOTHING:
             return default
@@ -98,6 +113,7 @@ class Attrs(ClassType):
         return res
 
     def default_choice_value(self, choice: Dict) -> Any:
+        """Return the default value or factory of the given model field choice."""
         factory = choice.get("factory")
         if callable(factory):
             return factory
