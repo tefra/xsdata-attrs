@@ -67,6 +67,5 @@ class Rss:
 
 ## Changelog: 24.3 (2024-03-10)
 
----
-
-- Updated
+- Add missing parser/serializer shortcuts
+- General project maintenance

@@ -1,3 +1,8 @@
+## 24.3 (2024-03-10)
+
+- Add missing parser/serializer shortcuts
+- General project maintenance
+
 ## 23.8 (2023-08-12)
 
 - Removed python 3.6 and 3.7 support
@@ -11,5 +16,4 @@
 
 ## 21.8 (2021-08-03)
 
--
 - Initial Release

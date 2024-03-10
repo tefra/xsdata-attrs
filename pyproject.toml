@@ -2,6 +2,9 @@
 requires = ["setuptools>=61.2"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools.packages.find]
+include = ["xsdata_attrs*"]
+
 [project]
 name = "xsdata_attrs"
 description = "xsdata attrs plugin"
@@ -28,7 +31,7 @@ keywords = ["xsd", "wsdl", "schema", "dtd", "binding", "xml", "json", "dataclass
 requires-python = ">=3.8"
 dependencies = [
     "attrs>=19.2.0",
-    "xsdata>=23.5",
+    "xsdata>=24.3",
 ]
 dynamic = ["version"]
 
@@ -60,7 +63,7 @@ docs = [
     "markdown-exec[ansi]",
     "pymdownx-superfence-filter-lines",
 ]
-lxml = ["lxml>=4.4.1"]
+lxml = ["lxml>=4.5.0"]
 soap = ["requests"]
 test = [
     "codecov",
