@@ -1,7 +1,5 @@
 # Code Generation
 
-[xsdata.cli][]
-
 All the xsdata [cli](https://xsdata.readthedocs.io/en/latest/codegen/intro/) features
 are available. You only need to specify **attrs** as the output format
 
