@@ -41,7 +41,7 @@ class DerivedElement(Generic[T]):
     """
     Generic model wrapper for type substituted elements.
 
-    Example: eg. <b xsi:type="a">...</b>
+    Example: e.g. <b xsi:type="a">...</b>
 
     :param qname: The element's qualified name
     :param value: The wrapped value
