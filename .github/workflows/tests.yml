@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: [ "3.8", "3.9", "3.10", "3.11", "3.12-dev" ]
+        python: [ "3.8", "3.9", "3.10", "3.11", "3.12" ]
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python }}
@@ -43,16 +43,18 @@ jobs:
           - { name: "Amadeus", id: "amadeus" }
           - { name: "Autosar", id: "autosar" }
           - { name: "BPMN", id: "bpmn" }
-          - { name: "Common Types", id: "common_types" }
+          - { name: "Common Types", id: "common-types" }
           - { name: "Crossref Metadata", id: "crossref" }
           - { name: "DateX II", id: "datexii" }
           - { name: "EWP", id: "ewp" }
-          - { name: "Generali", id: "generali" }
+          - { name: "Generali", id: "generali", skip_mypy: true }
           - { name: "NeTEx", id: "netex" }
           - { name: "NPO API", id: "npo" }
           - { name: "ReqIF", id: "reqif" }
           - { name: "Sabre", id: "sabre" }
+          - { name: "Sdmx-ml", id: "sdmx-ml", skip_mypy: true }
           - { name: "SpaceX", id: "spacex" }
+          - { name: "TPDB", id: "tpdb" }
           - { name: "Travelport", id: "travelport" }
           - { name: "UBL", id: "ubl" }
           - { name: "Voko", id: "voko" }
@@ -71,18 +73,18 @@ jobs:
           python-version: ${{ matrix.python }}
       - name: Install dependencies
         run: |
-          pip install --upgrade pip mypy types-attrs types-dataclasses typed_dataclass dataclasses-jsonschema
+          pip install --upgrade pip invoke mypy types-attrs types-dataclasses typed_dataclass dataclasses-jsonschema
           pip install .[cli,test]
       - name: Generate Code
         working-directory: ./xsdata-samples
-        run: ./run.py build ${{ matrix.collection.id }} --output-format=attrs
+        run: invoke ${{ matrix.collection.id }}.build --output-format=attrs
       - name: Run Tests
         working-directory: ./xsdata-samples
-        run: ./run.py test ${{ matrix.collection.id }} --output-format=attrs
+        run: invoke ${{ matrix.collection.id }}.test --output-format=attrs
       - name: Run mypy
+        if: matrix.collection.skip_mypy != true
         working-directory: ./xsdata-samples
-        if: matrix.collection.id != 'generali'
-        run: ./run.py mypy ${{ matrix.collection.id }} --output-format=attrs
+        run: invoke ${{ matrix.collection.id }}.mypy
   pre-commit:
     name: Pre-commit Hooks
     runs-on: ubuntu-latest

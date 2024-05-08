@@ -1,3 +1,7 @@
+## 24.5 (2024-05-08)
+
+- Bump xsdata minimum version v24.5
+
 ## 24.3 (2024-03-10)
 
 - Add missing parser/serializer shortcuts
