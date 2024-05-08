@@ -2,32 +2,35 @@ exclude: tests/fixtures
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: debug-statements
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.3.2
+    rev: v0.4.3
     hooks:
       - id: ruff
-        args: [ --fix, --show-fixes ]
+        args: [ --fix, --show-fixes]
       - id: ruff-format
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.9.0
+    rev: v1.10.0
     hooks:
       - id: mypy
-        files: ^(xsdata_attrs/)
+        files: ^(xsdata/)
         additional_dependencies:
           - tokenize-rt
-          - types-attrs
-  - repo: https://github.com/PyCQA/doc8
-    rev: v1.1.1
-    hooks:
-      - id: doc8
+          - types-requests
+          - types-Jinja2
+          - types-click
+          - types-docutils
+          - types-toposort
+        args: [ "--check-untyped-defs", "--ignore-missing-imports" ]
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.1.0
+    rev: v4.0.0-alpha.8
     hooks:
       - id: prettier
+        additional_dependencies:
+          - prettier@3.2.5
         types_or: [markdown]
         args: [--prose-wrap=always, --print-width=88]

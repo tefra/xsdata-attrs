@@ -65,7 +65,6 @@ class Rss:
 
 ```
 
-## Changelog: 24.3 (2024-03-10)
+## Changelog: 24.5 (2024-05-08)
 
-- Add missing parser/serializer shortcuts
-- General project maintenance
+- Bump xsdata minimum version v24.5

@@ -1,8 +1,7 @@
 from typing import Dict
-from typing import List
 from typing import Optional
 
-from xsdata.codegen.models import Attr
+from xsdata.codegen.models import Attr, Class
 from xsdata.formats.dataclass.filters import Filters
 from xsdata.formats.dataclass.generator import DataclassGenerator
 from xsdata.models.config import GeneratorConfig
@@ -40,13 +39,12 @@ class AttrsFilters(Filters):
 
     def field_definition(
         self,
+        obj: Class,
         attr: Attr,
-        ns_map: Dict,
         parent_namespace: Optional[str],
-        parents: List[str],
     ) -> str:
         """Return the field definition with any extra metadata."""
-        result = super().field_definition(attr, ns_map, parent_namespace, parents)
+        result = super().field_definition(obj, attr, parent_namespace)
         return result.replace("field(", "attr.ib(")
 
     @classmethod
